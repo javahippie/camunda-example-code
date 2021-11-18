@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0j4zenb" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="Process_032fdvh" isExecutable="true">
+    <bpmn:startEvent id="Event_057v1ej" name="Tankzug angekommen">
+      <bpmn:outgoing>Flow_097ivyi</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_097ivyi" sourceRef="Event_057v1ej" targetRef="Activity_1czdz1r" />
+    <bpmn:userTask id="Activity_1czdz1r" name="Proben entnehmen" camunda:formKey="">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="taskCount" label="Task Count" type="long" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_097ivyi</bpmn:incoming>
+      <bpmn:outgoing>Flow_01dnu9y</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_01dnu9y" sourceRef="Activity_1czdz1r" targetRef="Activity_00yu7bn" />
+    <bpmn:endEvent id="Event_1q4ieoi">
+      <bpmn:incoming>Flow_1sufusr</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1sufusr" sourceRef="Activity_00yu7bn" targetRef="Event_1q4ieoi" />
+    <bpmn:serviceTask id="Activity_00yu7bn" name="Probe überprüfen" camunda:type="external" camunda:topic="">
+      <bpmn:incoming>Flow_01dnu9y</bpmn:incoming>
+      <bpmn:outgoing>Flow_1sufusr</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics>
+        <bpmn:loopCardinality xsi:type="bpmn:tFormalExpression">${taskCount}</bpmn:loopCardinality>
+      </bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:serviceTask>
+    <bpmn:boundaryEvent id="Event_1lvbeeg" attachedToRef="Activity_00yu7bn">
+      <bpmn:compensateEventDefinition id="CompensateEventDefinition_00lw5v9" />
+    </bpmn:boundaryEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_032fdvh">
+      <bpmndi:BPMNEdge id="Flow_097ivyi_di" bpmnElement="Flow_097ivyi">
+        <di:waypoint x="208" y="120" />
+        <di:waypoint x="260" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01dnu9y_di" bpmnElement="Flow_01dnu9y">
+        <di:waypoint x="360" y="120" />
+        <di:waypoint x="420" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1sufusr_di" bpmnElement="Flow_1sufusr">
+        <di:waypoint x="520" y="120" />
+        <di:waypoint x="582" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_057v1ej_di" bpmnElement="Event_057v1ej">
+        <dc:Bounds x="172" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="157" y="145" width="67" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1cqqv0u_di" bpmnElement="Activity_1czdz1r">
+        <dc:Bounds x="260" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1q4ieoi_di" bpmnElement="Event_1q4ieoi">
+        <dc:Bounds x="582" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_18i60js_di" bpmnElement="Activity_00yu7bn">
+        <dc:Bounds x="420" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0hp10w5_di" bpmnElement="Event_1lvbeeg">
+        <dc:Bounds x="432" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
